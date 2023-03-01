@@ -27,6 +27,9 @@ class TicketsService {
     if(event.isCanceled){
       throw new Forbidden('Sorry, this event has been canceled.')
     }
+    if(event.capacity < 1){
+      throw new BadRequest('Sorry, there are no more tickets for this event.')
+    }
     const ticket = await dbContext.Tickets.create(ticketData)
     await ticket.populate('profile', 'name picture')
     await ticket.populate('event', 'name coverImg location startDate')

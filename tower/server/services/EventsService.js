@@ -10,10 +10,13 @@ class EventsService {
     await event.save()
     return event
   }
-  async editEventById(eventId, eventData) {
+  async editEventById(eventId, eventData, requestorId) {
     const foundEvent = await this.getEventById(eventId)
     if(foundEvent.isCanceled == true){
       throw new BadRequest('Sorry, this event has been canceled.')
+    }
+    if(foundEvent.creatorId.toString() !== requestorId){
+      throw new Forbidden('Only the creator of an event may edit the event.')
     }
     foundEvent.name = eventData.name || foundEvent.name
     foundEvent.description = eventData.description || foundEvent.description
