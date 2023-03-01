@@ -11,7 +11,9 @@ export const EventSchema = new Schema({
   startDate: { type: Date, required: true },
   isCanceled: { type: Boolean, default: false },
   type: { ...basicStringType, enum: ['concert', 'convention', 'sport', 'digital'], default: 'other' },
+
   creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true }
+  
 }, defaultSchemaOptions)
 
 EventSchema.virtual('creator', {
