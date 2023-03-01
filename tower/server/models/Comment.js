@@ -2,8 +2,7 @@ import { Schema } from "mongoose";
 import { basicStringType, defaultSchemaOptions } from "../db/Constants";
 
 export const CommentSchema = new Schema({
-  id: basicStringType,
-  body: { ...basicStringType, maxLenght: 1000 },
+  body: { ...basicStringType, maxLength: 1000 },
   isAttending: { type: Boolean },
 
   creatorId: { type: Schema.Types.ObjectId, required: true, ref: 'Account'},
