@@ -13,7 +13,8 @@ export class EventsController extends BaseController {
     try {
       const eventData = req.body
       eventData.creatorId = req.userInfo.id
-      const event = await eventsService.createEvent()
+      const event = await eventsService.createEvent(eventData)
+      return res.send(event)
     } catch (error) {
       next(error)
     }

@@ -1,6 +1,8 @@
+import { dbContext } from '../db/DbContext'
 class EventsService {
-  createEvent() {
-    throw new Error("Method not implemented.");
+  async createEvent(eventData) {
+    const event = await dbContext.Events.create(eventData)
+    return event
   }
 
 }
