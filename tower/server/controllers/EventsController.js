@@ -1,17 +1,29 @@
 import BaseController from "../utils/BaseController";
 import { Auth0Provider } from "@bcwdev/auth0provider";
 import { eventsService } from "../services/EventsService";
+import { ticketsService } from "../services/TicketsService"
 
 export class EventsController extends BaseController {
   constructor(){
     super('api/events')
     this.router
     .get('', this.getAllEvents)
+    .get('/:eventId/tickets', this.getEventTicketsByEventId)
     .get('/:eventId', this.getEventById)
     .use(Auth0Provider.getAuthorizedUserInfo)
     .post('', this.createEvent)
     .put('/:eventId', this.editEventById)
     .delete('/:eventId', this.editCancelEvent)
+  }
+  
+  async getEventTicketsByEventId(req, res, next){
+    try {
+      const eventId = req.params.eventId
+      const tickets = await ticketsService.getEventTicketsByEventId(eventId)
+      return res.send(tickets)
+    } catch (error) {
+      next(error)
+    }
   }
   async editCancelEvent(req, res, next) {
     try {

@@ -3,7 +3,7 @@ import { BadRequest, Forbidden } from '../utils/Errors'
 class EventsService {
   async editCancelEvent(eventId, requestorId) {
     const event = await this.getEventById(eventId)
-    if(event.creatorId.toString() != requestorId){
+    if(event.creatorId.toString() !== requestorId){
       throw new Forbidden('You must be the creator of an event in order to cancel it.')
     }
     event.isCanceled = true

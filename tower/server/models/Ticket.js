@@ -1,5 +1,5 @@
 import { Schema } from "mongoose";
-import { basicStringType, defaultSchemaOptions } from "../db/Constants";
+import { defaultSchemaOptions } from "../db/Constants";
 
 export const TicketSchema = new Schema({
 

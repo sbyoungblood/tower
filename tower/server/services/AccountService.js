@@ -1,4 +1,5 @@
 import { dbContext } from '../db/DbContext'
+import { eventsService } from "./EventsService"
 
 // Private Methods
 
@@ -76,6 +77,14 @@ class AccountService {
       { runValidators: true, setDefaultsOnInsert: true, new: true }
     )
     return account
+  }
+
+  async getMyTickets(accountId) {
+
+    const myTickets = await dbContext.Tickets.find({accountId})
+    .populate('profile', 'name picture')
+    .populate('event', 'name coverImg location startDate')
+    return(myTickets)
   }
 }
 export const accountService = new AccountService()
