@@ -2,6 +2,7 @@ import { AppState } from "../AppState"
 import { logger } from "../utils/Logger"
 import { api } from "./AxiosService"
 import { Event } from "../models/Event"
+import Pop from "../utils/Pop"
 
 class EventsService {
 
@@ -17,6 +18,16 @@ class EventsService {
     const res = await api.get('api/events/' + eventId)
     // logger.log(res.data)
     AppState.event = new Event(res.data)
+  }
+
+  async createEvent(eventData){
+    try {
+      const res = await api.post('api/events', eventData)
+      AppState.events.push(res.data)
+      return res.data
+    } catch (error) {
+      Pop.error("[CREATE EVENT]", error.message)
+    }
   }
 
 }

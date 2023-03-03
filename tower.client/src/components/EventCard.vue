@@ -1,6 +1,6 @@
 <template>
-  <router-link class="selectable" :to="{ name: 'Event', params: { eventId: event.id } }">
-    <div class="event-card rounded d-flex flex-column justify-content-end mb-3"
+  <router-link class="" :to="{ name: 'Event', params: { eventId: event.id } }">
+    <div class="event-card rounded elevation-5 d-flex flex-column justify-content-end mb-3"
       v-bind:style="{ backgroundImage: `url(${event.coverImg})` }">
       <div class="event-card-details p-2">
         <div>{{ event.name }}</div>
@@ -30,8 +30,6 @@ export default {
 .event-card {
   height: 38vh;
   width: 38vh;
-  color: white;
-  border: 4px solid #090c9b;
   background-position: center;
   background-size: cover;
 }

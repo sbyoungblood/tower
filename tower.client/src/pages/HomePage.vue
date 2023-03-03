@@ -1,14 +1,9 @@
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center mt-3">
-      <div class="col-md-11 hero mb-2 rounded">
-        Hero
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-md-11">
+      <div class="col-md-12">
         <div class="row">
-          <div v-for="e in events" class="col-md-3 d-flex justify-content-center mb-2">
+          <div v-for="e in events" class="col-md-3 d-flex justify-content-center mb-3">
             <EventCard :event="e" />
           </div>
         </div>

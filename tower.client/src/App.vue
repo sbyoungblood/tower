@@ -26,9 +26,7 @@ export default {
 <style lang="scss">
 @import "./assets/scss/main.scss";
 
-main {
-  background-color: #615F65;
-}
+main {}
 
 
 :root {
