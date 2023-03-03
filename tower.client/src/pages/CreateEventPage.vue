@@ -70,7 +70,7 @@
               <button class="btn btn-success">Clear Form</button>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-              <button class="btn btn-primary" type="submit">Create Event</button>
+              <button class="btn btn-primary" type="submit">{{ editable.id }} Create Event</button>
             </div>
           </div>
         </form>
@@ -83,11 +83,13 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { eventsService } from "../services/EventsService";
 
 export default {
   setup() {
 
+    const router = useRouter()
     const editable = ref({})
 
     return {

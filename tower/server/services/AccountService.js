@@ -83,7 +83,7 @@ class AccountService {
 
     const myTickets = await dbContext.Tickets.find({accountId})
     .populate('profile', 'name picture')
-    .populate('event', 'name coverImg location startDate')
+    .populate('event')
     return(myTickets)
   }
 }

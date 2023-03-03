@@ -39,7 +39,7 @@
                 </div>
               </div>
               <div class="col-md-6 d-flex justify-content-end px-4 py-1">
-                <button v-if="event?.creatorId == account?.id" class="btn btn-danger me-2"
+                <button v-if="event?.creatorId == account?.id && !event?.isCanceled" class="btn btn-danger me-2"
                   @click="cancelEvent(event.id)">Cancel
                   Event</button>
                 <button v-if="!foundTicket" @click="createTicket(event.id)" class="btn btn-dark">Attend</button>
@@ -49,9 +49,19 @@
         </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-11">
-        {{ tickets }}
+    <div class="row mt-5 justify-content-center">
+      <div v-for="t in tickets" class="col-md-11">
+        <img class="image-fluid rounded-circle" :src="t.profile.picture" alt="">
+      </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="col-md-6">
+        <textarea class="form-control" name="" id="" cols="60" rows="8"></textarea>
+      </div>
+    </div>
+    <div class="row mt-5 justify-content-center">
+      <div class="col-md-6">
+        comments
       </div>
     </div>
   </div>
@@ -59,7 +69,7 @@
 
 
 <script>
-import { watchEffect, computed } from "vue";
+import { watchEffect, computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import { eventsService } from "../services/EventsService";
 import { AppState } from "../AppState"
@@ -71,6 +81,7 @@ export default {
   setup() {
 
     const route = useRoute()
+    const editable = ref({})
 
     async function getEventById() {
       try {
