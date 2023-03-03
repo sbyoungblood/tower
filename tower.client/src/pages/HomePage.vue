@@ -8,7 +8,7 @@
           <button @click="changeFilterType('convention')" class="btn btn-success">CONVENTION</button>
           <button @click="changeFilterType('sport')" class="btn btn-success">SPORT</button>
           <button @click="changeFilterType('digital')" class="btn btn-success">DIGITAL</button>
-          <button @click="changeFilterType('other')" class="btn btn-success">OTHER</button>
+          <button @click="changeFilterType('misc')" class="btn btn-success">OTHER</button>
         </div>
       </div>
     </div>

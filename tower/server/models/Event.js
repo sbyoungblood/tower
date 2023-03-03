@@ -9,7 +9,7 @@ export const EventSchema = new Schema({
   capacity: { type: Number, default: 0 },
   startDate: { type: Date, required: true },
   isCanceled: { type: Boolean, default: false, required: true },
-  type: { ...basicStringType, enum: ['concert', 'convention', 'sport', 'digital', 'other'], default: 'other' },
+  type: { ...basicStringType, enum: ['concert', 'convention', 'sport', 'digital', 'misc'], default: 'misc' },
 
   creatorId: { type: Schema.Types.ObjectId, ref: 'Account', required: true }
   

@@ -38,7 +38,7 @@
               <div class="mb-3">
                 <label for="type" class="form-label">Event Type</label>
                 <select class="form-select" id="type" name="type" v-model="editable.type">
-                  <option value="other">Other</option>
+                  <option value="misc">Miscellaneous</option>
                   <option value="concert">Concert</option>
                   <option value="convention">Convention</option>
                   <option value="sport">Sport</option>
@@ -70,7 +70,7 @@
               <button class="btn btn-success">Clear Form</button>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-              <button class="btn btn-primary">Create Event</button>
+              <button class="btn btn-primary" type="submit">Create Event</button>
             </div>
           </div>
         </form>
@@ -78,6 +78,7 @@
     </div>
   </div>
 </template>
+
 
 
 <script>
@@ -94,6 +95,7 @@ export default {
       // types: ['concert', 'convention', 'sport', 'digital', 'other']
       async handleSubmit() {
         const event = editable.value
+        // NOTE must grab an id from here 
         await eventsService.createEvent(editable.value)
         editable.value = {}
         if (event?.id) {

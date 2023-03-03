@@ -20,7 +20,7 @@
                 </div>
               </div>
               <div class="col-md-6 d-flex justify-content-end">
-                <div class="canceled p-2">
+                <div v-if="event?.isCanceled" class="canceled p-2">
                   CANCELED
                 </div>
               </div>
@@ -39,7 +39,10 @@
                 </div>
               </div>
               <div class="col-md-6 d-flex justify-content-end px-4 py-1">
-                <button v-if="!foundTicket" @click="createTicket()" class="btn btn-dark">Attend</button>
+                <button v-if="event?.creatorId == account?.id" class="btn btn-danger me-2"
+                  @click="cancelEvent(event.id)">Cancel
+                  Event</button>
+                <button v-if="!foundTicket" @click="createTicket(event.id)" class="btn btn-dark">Attend</button>
               </div>
             </div>
           </div>
@@ -95,16 +98,29 @@ export default {
     })
 
     return {
+      account: computed(() => AppState.account),
       event: computed(() => AppState.event),
       tickets: computed(() => AppState.tickets),
       foundTicket: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
+      myEvent: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
 
-      async createTicket() {
+      async createTicket(eventId) {
         try {
           logger.log(route.params.eventId)
           await ticketsService.createTicket({ eventId: route.params.eventId })
         } catch (error) {
           Pop.error("[CREATE TICKET]", error.message)
+        }
+      },
+
+      async cancelEvent(eventId) {
+        try {
+          if (await Pop.confirm('Are you sure you wish to cancel this event?')) {
+            logger.log(eventId)
+            await eventsService.cancelEvent(eventId)
+          }
+        } catch (error) {
+          Pop.error("[CANCEL EVENT]", error.message)
         }
       }
     }
@@ -135,7 +151,7 @@ export default {
 }
 
 .canceled {
-  color: rgb(255, 50, 50);
+  color: #ff3232;
   font-size: 20pt;
   font-weight: 500;
 }
