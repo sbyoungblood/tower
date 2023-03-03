@@ -62,6 +62,7 @@ import { eventsService } from "../services/EventsService";
 import { AppState } from "../AppState"
 import Pop from "../utils/Pop";
 import { ticketsService } from "../services/TicketsService";
+import { logger } from "../utils/Logger";
 
 export default {
   setup() {
@@ -100,6 +101,7 @@ export default {
 
       async createTicket() {
         try {
+          logger.log(route.params.eventId)
           await ticketsService.createTicket({ eventId: route.params.eventId })
         } catch (error) {
           Pop.error("[CREATE TICKET]", error.message)

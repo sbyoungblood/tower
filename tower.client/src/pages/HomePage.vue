@@ -1,5 +1,17 @@
 <template>
   <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 filter d-flex flex-column justify-content-center">
+        <div class="d-flex justify-content-evenly align-items-center">
+          <button @click="changeFilterType('')" class="btn btn-success">ALL</button>
+          <button @click="changeFilterType('concert')" class="btn btn-success">CONCERT</button>
+          <button @click="changeFilterType('convention')" class="btn btn-success">CONVENTION</button>
+          <button @click="changeFilterType('sport')" class="btn btn-success">SPORT</button>
+          <button @click="changeFilterType('digital')" class="btn btn-success">DIGITAL</button>
+          <button @click="changeFilterType('other')" class="btn btn-success">OTHER</button>
+        </div>
+      </div>
+    </div>
     <div class="row justify-content-center mt-3">
       <div class="col-md-12">
         <div class="row">
@@ -15,12 +27,15 @@
 <script>
 import Pop from "../utils/Pop";
 import { eventsService } from "../services/EventsService"
-import { onMounted, computed } from "vue";
+import { onMounted, computed, ref } from "vue";
 import { AppState } from "../AppState";
 import EventCard from "../components/EventCard.vue";
 
 export default {
   setup() {
+
+    const filterType = ref('')
+
     async function getAllEvents() {
       try {
         await eventsService.getAllEvents();
@@ -33,7 +48,18 @@ export default {
       getAllEvents();
     });
     return {
-      events: computed(() => AppState.events)
+      events: computed(() => {
+        if (!filterType.value) {
+          return AppState.events
+        }
+        else {
+          return AppState.events.filter(e => e.type == filterType.value)
+        }
+      }),
+
+      changeFilterType(type) {
+        filterType.value = type
+      }
     };
   },
   components: { EventCard }
@@ -50,5 +76,10 @@ export default {
   color: black;
   font-weight: 600;
   text-shadow: 0 0 3px white;
+}
+
+.filter {
+  background-color: gray;
+  height: 10vh;
 }
 </style>

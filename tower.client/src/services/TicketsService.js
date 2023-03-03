@@ -11,8 +11,8 @@ async getTicketHoldersByEventId(eventId){
   AppState.tickets = res.data.map(t => new Ticket(t))
 }
 
-async createTicket({ eventData }){
-  const res = await api.post('api/tickets', eventData)
+async createTicket({ eventId }){
+  const res = await api.post('api/tickets', eventId)
   logger.log("[CREATING TICKET]", res.data)
   // AppState.tickets.push(new Ticket(res.data))
   // AppState.myEvents.push(new Event(res.dat))
