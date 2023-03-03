@@ -42,7 +42,8 @@
                 <button v-if="event?.creatorId == account?.id && !event?.isCanceled" class="btn btn-danger me-2"
                   @click="cancelEvent(event.id)">Cancel
                   Event</button>
-                <button v-if="!foundTicket" @click="createTicket(event.id)" class="btn btn-dark">Attend</button>
+                <button v-if="!foundTicket && !event?.isCanceled" @click="createTicket(event.id)"
+                  class="btn btn-dark">Attend</button>
               </div>
             </div>
           </div>
@@ -76,6 +77,7 @@ import { AppState } from "../AppState"
 import Pop from "../utils/Pop";
 import { ticketsService } from "../services/TicketsService";
 import { logger } from "../utils/Logger";
+import { commentsService } from "../services/CommentsService";
 
 export default {
   setup() {
@@ -92,6 +94,15 @@ export default {
       }
     }
 
+    async function getCommentsByEventId() {
+      try {
+        const eventId = route.params.eventId
+        await commentsService.getCommentsByEventId(eventId)
+      } catch (error) {
+        Pop.error("[GET COMMENTS BY EVENT ID]", error.message)
+      }
+    }
+
     async function getTicketHoldersByEventId() {
       try {
         const eventId = route.params.eventId
@@ -105,6 +116,7 @@ export default {
       if (route.params.eventId) {
         getEventById()
         getTicketHoldersByEventId()
+        getCommentsByEventId()
       }
     })
 
