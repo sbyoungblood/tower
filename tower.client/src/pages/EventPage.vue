@@ -52,17 +52,17 @@
     </div>
     <div class="row mt-5 justify-content-center">
       <div v-for="t in tickets" class="col-md-11">
-        <img class="image-fluid rounded-circle" :src="t.profile.picture" alt="">
+        <img class="image-fluid rounded-circle" :src="t.profile.picture" :alt="t.profile.name" :title="t.profile.name">
       </div>
     </div>
     <div class="row mt-5 justify-content-center">
       <div class="col-md-6">
-        <textarea class="form-control" name="" id="" cols="60" rows="8"></textarea>
+        <CommentForm />
       </div>
     </div>
     <div class="row mt-5 justify-content-center">
-      <div class="col-md-6">
-        comments
+      <div v-for="c in comments" class="col-md-6">
+        <CommentCard :comment="c" />
       </div>
     </div>
   </div>
@@ -78,6 +78,8 @@ import Pop from "../utils/Pop";
 import { ticketsService } from "../services/TicketsService";
 import { logger } from "../utils/Logger";
 import { commentsService } from "../services/CommentsService";
+import CommentForm from "../components/CommentForm.vue"
+import CommentCard from "../components/CommentCard.vue";
 
 export default {
   setup() {
@@ -126,6 +128,7 @@ export default {
       tickets: computed(() => AppState.tickets),
       foundTicket: computed(() => AppState.tickets.find(t => t.accountId == AppState.account.id)),
       myEvent: computed(() => AppState.events.find(e => e.creatorId == AppState.account.id)),
+      comments: computed(() => AppState.comments),
 
       async createTicket(eventId) {
         try {
@@ -145,9 +148,10 @@ export default {
         } catch (error) {
           Pop.error("[CANCEL EVENT]", error.message)
         }
-      }
+      },
     }
-  }
+  },
+  components: { CommentForm, CommentCard }
 }
 </script>
 

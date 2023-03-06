@@ -18,6 +18,12 @@ async createTicket(eventId){
   // AppState.myEvents.push(new Event(res.dat))
 }
 
+async getMyTickets(){
+  const res = await api.get('account/tickets')
+  logger.log('MY TICKETS', res.data)
+  AppState.myTickets = res.data.map(t => new Event(t))
+}
+
 }
 
 export const ticketsService = new TicketsService
