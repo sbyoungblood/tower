@@ -7,13 +7,14 @@
         </div>
         <div class="col-md-4">
           <div>
-            {{ ticket?.event?.name }}
+            <h3>
+              {{ ticket?.event?.name }}
+            </h3>
           </div>
           <div>
-            {{ ticket?.event?.location }}
-          </div>
-          <div>
-            {{ ticket?.event?.startDate }}
+            <h5>
+              {{ ticket?.event?.location }}
+            </h5>
           </div>
         </div>
         <div class="col-md-4">
@@ -43,8 +44,10 @@ export default {
 
       async deleteTicketById(ticketId) {
         try {
-          logger.log('ticket id', ticketId)
-          await ticketsService.deleteTicketById(ticketId)
+          if (await Pop.confirm('Are you sure you wish to return this ticket?')) {
+            logger.log('ticket id', ticketId)
+            await ticketsService.deleteTicketById(ticketId)
+          }
         } catch (error) {
           Pop.error('Delete Ticket', error.message)
         }

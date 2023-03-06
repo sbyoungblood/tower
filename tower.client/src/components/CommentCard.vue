@@ -1,11 +1,13 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-2">
-        <div>
-          <img :src="comment.creator.picture" alt="" class="commentImg">
+    <div class="row mb-4">
+      <div class="col-md-2 d-flex flex-column justify-content-center">
+        <div class="d-flex justify-content-center">
+          <img :src="comment.creator.picture" alt="" class="commentImg rounded-circle">
         </div>
-        <div>{{ comment?.creator?.name }}</div>
+        <div class="d-flex justify-content-center">
+          <h5>{{ comment?.creator?.name }}</h5>
+        </div>
       </div>
       <div class="col-md-8">
         <div>
@@ -41,8 +43,10 @@ export default {
 
       async deleteCommentById(commentId) {
         try {
-          await commentsService.deleteCommentById(commentId)
-          logger.log('delete this comment', commentId)
+          if (await Pop.confirm('Would you like to remove this comment?')) {
+            await commentsService.deleteCommentById(commentId)
+            logger.log('delete this comment', commentId)
+          }
         } catch (error) {
           Pop.error('DELETE COMMENT', error.message)
         }

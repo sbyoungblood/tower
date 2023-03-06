@@ -56,7 +56,7 @@
       </div>
     </div>
     <div class="row justify-content-center">
-      <div class="col-md-11">
+      <div class="col-md-11 mt-5">
         <CommentForm />
       </div>
     </div>
