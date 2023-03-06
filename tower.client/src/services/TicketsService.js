@@ -26,7 +26,7 @@ async getMyTickets(){
 }
 
 async deleteTicketById(ticketId){
-  const res = await api.delete(`'api/tickets/${ticketId}`)
+  const res = await api.delete(`api/tickets/${ticketId}`)
   logger.log('deleted ticket', res.data)
   
   // const ticketIndex = appstate.mytickets.findIndex(t => t.ticketId == ticketId)

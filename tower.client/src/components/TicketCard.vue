@@ -43,8 +43,8 @@ export default {
 
       async deleteTicketById(ticketId) {
         try {
-          await ticketsService.deleteTicketById(ticketId)
           logger.log('ticket id', ticketId)
+          await ticketsService.deleteTicketById(ticketId)
         } catch (error) {
           Pop.error('Delete Ticket', error.message)
         }
