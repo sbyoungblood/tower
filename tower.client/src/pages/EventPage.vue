@@ -42,7 +42,7 @@
                 <button v-if="event?.creatorId == account?.id && !event?.isCanceled" class="btn btn-danger me-2"
                   @click="cancelEvent(event.id)">Cancel
                   Event</button>
-                <button v-if="!foundTicket && !event?.isCanceled" @click="createTicket(event.id)"
+                <button v-if="!foundTicket && !event?.isCanceled && event.capacity >= 1" @click="createTicket(event.id)"
                   class="btn btn-dark">Attend</button>
               </div>
             </div>
@@ -55,13 +55,13 @@
         <img class="image-fluid rounded-circle" :src="t.profile.picture" :alt="t.profile.name" :title="t.profile.name">
       </div>
     </div>
-    <div class="row mt-5 justify-content-center">
-      <div class="col-md-6">
+    <div class="row justify-content-center">
+      <div class="col-md-11">
         <CommentForm />
       </div>
     </div>
     <div class="row mt-5 justify-content-center">
-      <div v-for="c in comments" class="col-md-6">
+      <div v-for="c in comments" class="col-md-10">
         <CommentCard :comment="c" />
       </div>
     </div>

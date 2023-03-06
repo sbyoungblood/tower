@@ -96,9 +96,8 @@ export default {
       editable,
       // types: ['concert', 'convention', 'sport', 'digital', 'other']
       async handleSubmit() {
-        const event = editable.value
         // NOTE must grab an id from here 
-        await eventsService.createEvent(editable.value)
+        const event = await eventsService.createEvent(editable.value)
         editable.value = {}
         if (event?.id) {
           router.push({ name: 'Event', params: { eventId: event.id } })

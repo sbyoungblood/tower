@@ -1,11 +1,9 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center mt-3">
-      <div class="col-md-12">
-        <div class="row">
-          <!-- <div v-for="t in myTickets" class="col-md-3 d-flex justify-content-center mb-3">
-            <EventCard :event="t" /> -->
-          <!-- </div> -->
+    <div class="row justify-content-center">
+      <div class="col-md-11">
+        <div v-for="t in myTickets">
+          <TicketCard :ticket="t" />
         </div>
       </div>
     </div>
@@ -19,6 +17,7 @@ import Pop from "../utils/Pop";
 import { onMounted, computed } from "vue";
 import { AppState } from "../AppState";
 import { watchEffect } from "vue";
+import TicketCard from "../components/TicketCard.vue";
 
 export default {
   setup() {
@@ -41,7 +40,8 @@ export default {
       account: computed(() => AppState.account),
       myTickets: computed(() => AppState.myTickets)
     }
-  }
+  },
+  components: { TicketCard }
 }
 </script>
 

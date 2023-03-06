@@ -21,7 +21,18 @@ async createTicket(eventId){
 async getMyTickets(){
   const res = await api.get('account/tickets')
   logger.log('MY TICKETS', res.data)
-  AppState.myTickets = res.data.map(t => new Event(t))
+  const myTickets = res.data.map(t => new Ticket(t))
+  AppState.myTickets = myTickets
+}
+
+async deleteTicketById(ticketId){
+  const res = await api.delete(`'api/tickets/${ticketId}`)
+  logger.log('deleted ticket', res.data)
+  
+  // const ticketIndex = appstate.mytickets.findIndex(t => t.ticketId == ticketId)
+  // if(ticketIndex !== -1){
+  //appstate.mytickets.splice(ticketIndex, 1)
+  // }
 }
 
 }
